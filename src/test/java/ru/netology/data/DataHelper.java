@@ -10,21 +10,11 @@ import java.util.concurrent.ThreadLocalRandom;
 
 
 public class DataHelper {
-    public static final String cardNumberApproved = "4444 4444 4444 4441";
-    public static final String cardNumberDeclined = "4444 4444 4444 4442";
-    public static final String cardNumberZeros = "0000 0000 0000 0000";
-    public static final String cardNumberInvalid = "";
-    public static final String cardNumberEmpty = " ";
-    public static final String dateZeros = "00";
-    public static final String cvcZeros = "000";
-    public static final String extraMonth = "13";
-    public static final String monthInvalid = "!q";
-    public static final String longMonth = "321";
-    public static final String yearInvalid = "!q";
-    public static final String cardholderInvalid = "T@12n3M";
-
-    public static final String cvcInvalid = "!Qq";
-    public static final String longCvc = "1234";
+    public static final String CARD_NUMBER_APPROVED = "4444 4444 4444 4441";
+    public static final String CARD_NUMBER_DECLINED = "4444 4444 4444 4442";
+    public static final String CARD_NUMBER_ZEROS = "0000 0000 0000 0000";
+    public static final String DATE_ZEROS = "00";
+    public static final String CVC_ZEROS = "000";
 
     public static String getSymbol() {
         String[] Symbols = {
@@ -59,8 +49,7 @@ public class DataHelper {
     }
 
     public static String getMonthValid() {
-        String month = LocalDate.now().format(DateTimeFormatter.ofPattern("MM"));
-        return month;
+        return LocalDate.now().format(DateTimeFormatter.ofPattern("MM"));
     }
 
     public static String getMonthInvalid13() {
@@ -68,27 +57,29 @@ public class DataHelper {
         return String.valueOf(randomNumber);
     }
 
+    public static String getMonthExpired() {
+        LocalDate currentData = LocalDate.now();
+        LocalDate currentMonth = currentData.minusMonths(1);
+        return currentMonth.format(DateTimeFormatter.ofPattern("MM"));
+    }
+
     public static String getYearValid() {
-        String year = LocalDate.now().format(DateTimeFormatter.ofPattern("yy"));
-        return year;
+        return LocalDate.now().format(DateTimeFormatter.ofPattern("YY"));
     }
 
-    public static String getExpiredYear() {
-        return LocalDate.now().minusYears(1).format(DateTimeFormatter.ofPattern("yy"));
-    }
-
-    public static String getLongYear() {
-        String fullYear = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy"));
-        return fullYear;
+    public static String getYearExpired() {
+        LocalDate currentData = LocalDate.now();
+        LocalDate currentYear = currentData.minusMonths(1);
+        return currentYear.format(DateTimeFormatter.ofPattern("YY"));
     }
 
     public static String getCardholderFullNameRu() {
-        Faker faker = new Faker(new Locale("ru"));
+        Faker faker = new Faker(new Locale("RU"));
         return faker.name().fullName();
     }
 
     public static String getCardholderFullNameEn() {
-        Faker faker = new Faker(new Locale("en"));
+        Faker faker = new Faker(new Locale("EN"));
         return faker.name().fullName();
     }
 

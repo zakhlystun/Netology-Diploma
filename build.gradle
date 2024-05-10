@@ -1,11 +1,10 @@
 group = 'ru.netology'
 version = '1.0-SNAPSHOT'
 
-sourceCompatibility = 11
 
 apply plugin: 'java'
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 11
+targetCompatibility = 11
 
 compileJava.options.encoding = "UTF-8"
 compileTestJava.options.encoding = "UTF-8"
@@ -32,10 +31,10 @@ dependencies {
     testImplementation 'io.qameta.allure:allure-selenide:2.20.1'
     testRuntimeOnly 'org.slf4j:slf4j-simple:2.0.3'
     testImplementation 'org.apache.commons:commons-lang3:3.8.1'
-   // implementation 'com.epam.reportportal:logger-java-log4j:5.2.2'
-   // implementation 'org.apache.logging.log4j:log4j-api:2.17.1'
-   // implementation 'org.apache.logging.log4j:log4j-core:2.17.1'
-   // implementation 'com.epam.reportportal:agent-java-junit5:5.3.2'
+    implementation 'com.epam.reportportal:logger-java-log4j:5.2.2'
+    implementation 'org.apache.logging.log4j:log4j-api:2.17.1'
+    implementation 'org.apache.logging.log4j:log4j-core:2.17.1'
+    implementation 'com.epam.reportportal:agent-java-junit5:5.3.2'
 }
 
 test {
@@ -45,7 +44,7 @@ test {
     systemProperty 'db.user', System.getProperty('db.user', 'app')
     systemProperty 'db.password', System.getProperty('db.password', 'pass')
     systemProperty 'sut.url', System.getProperty('sut.url', "http://localhost:8080")
-   // testLogging.showStandardStreams = true
-   // useJUnitPlatform()
-   // systemProperty 'junit.jupiter.extensions.autodetection.enabled', true
+    testLogging.showStandardStreams = true
+    useJUnitPlatform()
+    systemProperty 'junit.jupiter.extensions.autodetection.enabled', true
 }

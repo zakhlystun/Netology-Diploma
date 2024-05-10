@@ -18,7 +18,7 @@ public class DebitPage {
     private final SelenideElement fieldCardholder = $(byText("Владелец")).parent().$("[class='input__control']");
     private final SelenideElement fieldCardCvc = $(byText("CVC/CVV")).parent().$("[class='input__control']");
     private final SelenideElement msgSuccess = $(byText("Операция одобрена Банком.")).parent().$("[class='notification__content']");
-    private final SelenideElement msgCardInvalid = $(byText("Ошибка! Банк отказал в проведении операции.")).parent().$("[class='notification__content']");
+    private final SelenideElement msgDecline = $(byText("Ошибка! Банк отказал в проведении операции.")).parent().$("[class='notification__content']");
     private final SelenideElement msgIncorrectFormat = $(byText("Неверный формат"));
     private final SelenideElement msgIncorrectDate = $(byText("Неверно указан срок действия карты"));
     private final SelenideElement msgExpiredDate = $(byText("Истёк срок действия карты"));
@@ -58,7 +58,7 @@ public class DebitPage {
     }
 
     public void shouldHaveMsgCardInvalid() {
-        msgCardInvalid.shouldHave(Condition.visible, Duration.ofSeconds(10));
+        msgDecline.shouldHave(Condition.visible, Duration.ofSeconds(10));
     }
 
     public void shouldHaveMsgIncorrectFormat() {

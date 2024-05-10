@@ -19,7 +19,6 @@ public class SQLHelper {
         String deleteOrderEntity = "DELETE FROM order_entity";
         String deletePaymentEntity = "DELETE FROM payment_entity";
         QueryRunner runner = new QueryRunner();
-
         Connection conn = DriverManager.getConnection(url, user, password);
         runner.update(conn, deleteCreditRequestEntity);
         runner.update(conn, deleteOrderEntity);
@@ -27,18 +26,18 @@ public class SQLHelper {
         conn.close();
     }
 
-    public static String getDebitStatus() {
+    public static String getDebitStatusFromDatabase() {
         String codesSQL = "SELECT status FROM payment_entity ORDER BY created DESC LIMIT 1";
-        return getData(codesSQL);
+        return getDataFromDatabase(codesSQL);
     }
 
-    public static String getCreditStatus() {
+    public static String getCreditStatusFromDatabase() {
         String codesSQL = "SELECT status FROM credit_request_entity ORDER BY created DESC LIMIT 1";
-        return getData(codesSQL);
+        return getDataFromDatabase(codesSQL);
     }
 
     @SneakyThrows
-    public static long getOrderCount() {
+    public static long getOrdersFromDatabase() {
         String codesSQL = "SELECT COUNT(*) FROM order_entity";
         Connection conn = DriverManager.getConnection(url, user, password);
         QueryRunner runner = new QueryRunner();
@@ -46,7 +45,7 @@ public class SQLHelper {
     }
 
     @SneakyThrows
-    private static String getData(String query) {
+    private static String getDataFromDatabase(String query) {
         QueryRunner runner = new QueryRunner();
         String data = "";
         Connection conn = DriverManager.getConnection(url, user, password);
