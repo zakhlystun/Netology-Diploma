@@ -10,8 +10,7 @@ import ru.netology.page.CreditPage;
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static ru.netology.data.DataHelper.getOneDigit;
-import static ru.netology.data.SQLHelper.getCreditStatusFromDatabase;
-import static ru.netology.data.SQLHelper.getOrdersFromDatabase;
+import static ru.netology.data.SQLHelper.*;
 
 public class CreditTest {
     String url = System.getProperty("sut.url");
@@ -74,7 +73,7 @@ public class CreditTest {
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgRequiredField();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -87,7 +86,7 @@ public class CreditTest {
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgIncorrectFormat();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -100,7 +99,7 @@ public class CreditTest {
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgIncorrectFormat();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -113,20 +112,20 @@ public class CreditTest {
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgIncorrectFormat();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
     @DisplayName("ТС-2.3.4 Неверно заполнено поле Номер карты, слишком длинное значение, 17 цифр")
     public void shouldIncorrectCardNumberLong() {
-        buy.fieldCardNumberInsert(DataHelper.getCardNumberLong());
+        buy.fieldCardNumberInsert(DataHelper.CARD_NUMBER_APPROVED + getOneDigit());
         buy.fieldCardMonthInsert(DataHelper.getMonthValid());
         buy.fieldCardYearInsert(DataHelper.getYearValid());
         buy.fieldCardholderInsert(DataHelper.getCardholderFullNameEn());
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgSuccess();
-        assertEquals(1, getOrdersFromDatabase());
+        assertEquals("APPROVED", getCreditStatusFromDatabase());
     }
 
     @Test
@@ -139,7 +138,7 @@ public class CreditTest {
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgIncorrectFormat();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -151,7 +150,7 @@ public class CreditTest {
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgRequiredField();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -164,7 +163,7 @@ public class CreditTest {
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgRequiredField();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -176,15 +175,15 @@ public class CreditTest {
         buy.fieldCardholderInsert(DataHelper.getCardholderFullNameEn());
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
-        buy.shouldHaveMsgIncorrectFormat();
-        assertEquals(0, getOrdersFromDatabase());
+        buy.shouldHaveMsgRequiredField();
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
     @DisplayName("ТС-2.4.3 Неверно заполнено поле Месяц,слишком длинное значение")
     public void shouldIncorrectMonthLong() {
         buy.fieldCardNumberInsert(DataHelper.CARD_NUMBER_APPROVED);
-        buy.fieldCardMonthInsert(DataHelper.getMonthValid());
+        buy.fieldCardMonthInsert(DataHelper.getMonthValid() + getOneDigit());
         buy.fieldCardYearInsert(DataHelper.getYearValid());
         buy.fieldCardholderInsert(DataHelper.getCardholderFullNameEn());
         buy.fieldCardCvcInsert(DataHelper.getCvc());
@@ -203,7 +202,7 @@ public class CreditTest {
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgIncorrectDate();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -216,7 +215,7 @@ public class CreditTest {
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgIncorrectDate();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -229,7 +228,7 @@ public class CreditTest {
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgExpiredDate();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -241,7 +240,7 @@ public class CreditTest {
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgRequiredField();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -254,7 +253,7 @@ public class CreditTest {
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgIncorrectFormat();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -267,7 +266,7 @@ public class CreditTest {
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgIncorrectFormat();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -280,7 +279,7 @@ public class CreditTest {
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgIncorrectFormat();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -293,7 +292,7 @@ public class CreditTest {
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgSuccess();
-        assertEquals(1, getOrdersFromDatabase());
+        assertEquals(1, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -306,7 +305,7 @@ public class CreditTest {
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgExpiredDate();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -318,7 +317,7 @@ public class CreditTest {
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgRequiredField();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -331,7 +330,7 @@ public class CreditTest {
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgIncorrectFormat();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -344,7 +343,7 @@ public class CreditTest {
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgRequiredField();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -357,7 +356,7 @@ public class CreditTest {
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgIncorrectFormat();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -369,7 +368,7 @@ public class CreditTest {
         buy.fieldCardholderInsert(DataHelper.getCardholderFullNameEn());
         buy.buttonContinueClick();
         buy.shouldHaveMsgRequiredField();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -382,7 +381,7 @@ public class CreditTest {
         buy.fieldCardCvcInsert(DataHelper.getLetters());
         buy.buttonContinueClick();
         buy.shouldHaveMsgIncorrectFormat();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -395,7 +394,7 @@ public class CreditTest {
         buy.fieldCardCvcInsert(DataHelper.getSymbol());
         buy.buttonContinueClick();
         buy.shouldHaveMsgIncorrectFormat();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -408,7 +407,7 @@ public class CreditTest {
         buy.fieldCardCvcInsert(DataHelper.getOneDigit());
         buy.buttonContinueClick();
         buy.shouldHaveMsgIncorrectFormat();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -421,6 +420,6 @@ public class CreditTest {
         buy.fieldCardCvcInsert(DataHelper.CVC_ZEROS);
         buy.buttonContinueClick();
         buy.shouldHaveMsgIncorrectFormat();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 }

@@ -11,7 +11,7 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
 public class CreditPage {
-    private final SelenideElement buttonDebitBuy = $$("button").find(exactText("Купить"));
+    private final SelenideElement buttonCreditBuy = $$("button").find(exactText("Купить в кредит"));
     private final SelenideElement fieldCardNumber = $(byText("Номер карты")).parent().$("[class='input__control']");
     private final SelenideElement fieldCardMonth = $(byText("Месяц")).parent().$("[class='input__control']");
     private final SelenideElement fieldCardYear = $(byText("Год")).parent().$("[class='input__control']");
@@ -26,7 +26,7 @@ public class CreditPage {
     private final SelenideElement buttonContinue = $$("button").find(exactText("Продолжить"));
 
     public void buyCredit() {
-        buttonDebitBuy.click();
+        buttonCreditBuy.click();
     }
 
     public void buttonContinueClick() {

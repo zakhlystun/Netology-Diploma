@@ -10,8 +10,7 @@ import ru.netology.page.DebitPage;
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static ru.netology.data.DataHelper.getOneDigit;
-import static ru.netology.data.SQLHelper.getDebitStatusFromDatabase;
-import static ru.netology.data.SQLHelper.getOrdersFromDatabase;
+import static ru.netology.data.SQLHelper.*;
 
 
 public class DebitTest {
@@ -76,7 +75,7 @@ public class DebitTest {
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgRequiredField();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -89,7 +88,7 @@ public class DebitTest {
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgIncorrectFormat();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -102,7 +101,7 @@ public class DebitTest {
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgIncorrectFormat();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -115,20 +114,20 @@ public class DebitTest {
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgIncorrectFormat();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
     @DisplayName("ТС-1.3.4 Неверно заполнено поле Номер карты, слишком длинное значение, 17 цифр")
     public void shouldIncorrectCardNumberLong() {
-        buy.fieldCardNumberInsert(DataHelper.getCardNumberLong());
+        buy.fieldCardNumberInsert(DataHelper.CARD_NUMBER_APPROVED + getOneDigit());
         buy.fieldCardMonthInsert(DataHelper.getMonthValid());
         buy.fieldCardYearInsert(DataHelper.getYearValid());
         buy.fieldCardholderInsert(DataHelper.getCardholderFullNameEn());
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgSuccess();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals("APPROVED", getDebitStatusFromDatabase());
     }
 
     @Test
@@ -141,7 +140,7 @@ public class DebitTest {
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgIncorrectFormat();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -153,7 +152,7 @@ public class DebitTest {
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgRequiredField();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -165,8 +164,8 @@ public class DebitTest {
         buy.fieldCardholderInsert(DataHelper.getCardholderFullNameEn());
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
-        buy.shouldHaveMsgIncorrectFormat();
-        assertEquals(0, getOrdersFromDatabase());
+        buy.shouldHaveMsgRequiredField();
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -178,8 +177,8 @@ public class DebitTest {
         buy.fieldCardholderInsert(DataHelper.getCardholderFullNameEn());
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
-        buy.shouldHaveMsgIncorrectFormat();
-        assertEquals(0, getOrdersFromDatabase());
+        buy.shouldHaveMsgRequiredField();
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -205,7 +204,7 @@ public class DebitTest {
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgIncorrectDate();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -218,7 +217,7 @@ public class DebitTest {
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgIncorrectDate();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -231,7 +230,7 @@ public class DebitTest {
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgExpiredDate();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -243,7 +242,7 @@ public class DebitTest {
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgRequiredField();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -256,7 +255,7 @@ public class DebitTest {
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgIncorrectFormat();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -269,7 +268,7 @@ public class DebitTest {
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgIncorrectFormat();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -282,7 +281,7 @@ public class DebitTest {
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgIncorrectFormat();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -295,7 +294,7 @@ public class DebitTest {
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgSuccess();
-        assertEquals(1, getOrdersFromDatabase());
+        assertEquals(1, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -308,7 +307,7 @@ public class DebitTest {
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgExpiredDate();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -320,7 +319,7 @@ public class DebitTest {
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgRequiredField();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -333,7 +332,7 @@ public class DebitTest {
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgIncorrectFormat();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -346,7 +345,7 @@ public class DebitTest {
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgRequiredField();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -359,7 +358,7 @@ public class DebitTest {
         buy.fieldCardCvcInsert(DataHelper.getCvc());
         buy.buttonContinueClick();
         buy.shouldHaveMsgIncorrectFormat();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -371,7 +370,7 @@ public class DebitTest {
         buy.fieldCardholderInsert(DataHelper.getCardholderFullNameEn());
         buy.buttonContinueClick();
         buy.shouldHaveMsgRequiredField();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -384,7 +383,7 @@ public class DebitTest {
         buy.fieldCardCvcInsert(DataHelper.getLetters());
         buy.buttonContinueClick();
         buy.shouldHaveMsgIncorrectFormat();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -397,7 +396,7 @@ public class DebitTest {
         buy.fieldCardCvcInsert(DataHelper.getSymbol());
         buy.buttonContinueClick();
         buy.shouldHaveMsgIncorrectFormat();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -410,7 +409,7 @@ public class DebitTest {
         buy.fieldCardCvcInsert(DataHelper.getOneDigit());
         buy.buttonContinueClick();
         buy.shouldHaveMsgIncorrectFormat();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
     @Test
@@ -423,7 +422,7 @@ public class DebitTest {
         buy.fieldCardCvcInsert(DataHelper.CVC_ZEROS);
         buy.buttonContinueClick();
         buy.shouldHaveMsgIncorrectFormat();
-        assertEquals(0, getOrdersFromDatabase());
+        assertEquals(0, SQLHelper.getOrdersFromDatabase());
     }
 
 }
