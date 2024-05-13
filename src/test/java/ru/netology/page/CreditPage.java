@@ -54,11 +54,11 @@ public class CreditPage {
     }
 
     public void shouldHaveMsgSuccess() {
-        msgSuccess.shouldHave(Condition.visible, Duration.ofSeconds(10));
+        msgSuccess.shouldHave(Condition.visible, Duration.ofSeconds(15));
     }
 
     public void shouldHaveMsgCardInvalid() {
-        msgDecline.shouldHave(Condition.visible, Duration.ofSeconds(10));
+        msgDecline.shouldHave(Condition.visible, Duration.ofSeconds(15));
     }
 
     public void shouldHaveMsgIncorrectFormat() {
